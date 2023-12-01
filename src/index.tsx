@@ -1,11 +1,5 @@
-import React from 'react';
+// src/index.tsx
+export { TablePlugin } from './Components';
+// Importe tous les exports de Components/index.tsx
 
-import s from './styles.module.css';
-
-type TestComponentProps = {
-  textText?: string;
-};
-
-export const TestComponent: React.FC<TestComponentProps> = ({ textText }) => {
-  return <div className={s.root}>{textText ?? 'Hello!'}</div>;
-};
+export { default as Styles } from './styles.module.css'; // Si nécessaire

@@ -1,6 +1,2 @@
-import React from 'react';
-type TestComponentProps = {
-    textText?: string;
-};
-export declare const TestComponent: React.FC<TestComponentProps>;
-export {};
+export { TablePlugin } from './Components';
+export { default as Styles } from './styles.module.css';

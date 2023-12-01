@@ -1,6 +1,4 @@
-'use strict';
-
-var React = require('react');
+import React, { useState, useEffect } from 'react';
 
 // TableInfo.tsx
 /**
@@ -36,7 +34,7 @@ const TableInfo = ({ startRange, totalEmployees, filteredEmployees, searchTerm, 
 // EntriesPerPageDropdown.tsx
 const EntriesPerPageDropdown = ({ onChange }) => {
     const entriesPerPageOptions = [10, 25, 50, 100];
-    const [selectedOption, setSelectedOption] = React.useState(entriesPerPageOptions[0]);
+    const [selectedOption, setSelectedOption] = useState(entriesPerPageOptions[0]);
     const handleSelect = (event) => {
         const selectedValue = Number(event.target.value);
         setSelectedOption(selectedValue);
@@ -94,13 +92,13 @@ const SortIcon = ({ direction }) => {
  */
 const SearchBar = ({ onSearch, isFilterActive }) => {
     // State to manage the current search term
-    const [searchTerm, setSearchTerm] = React.useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     // Event handler for changes in the search input
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
     // Effect to trigger the search callback when the search term changes
-    React.useEffect(() => {
+    useEffect(() => {
         // Perform search when the search term meets certain criteria
         if (searchTerm.length >= 3 || searchTerm.length === 0) {
             onSearch(searchTerm);
@@ -124,11 +122,11 @@ const SearchBar = ({ onSearch, isFilterActive }) => {
  */
 function TablePlugin() {
     // State variables to manage the component's behavior
-    const [entriesPerPage, setEntriesPerPage] = React.useState(10);
-    const [currentPage, setCurrentPage] = React.useState(1);
-    const [sortKey, setSortKey] = React.useState(0);
-    const [sortDirection, setSortDirection] = React.useState(undefined);
-    const [searchTerm, setSearchTerm] = React.useState('');
+    const [entriesPerPage, setEntriesPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sortKey, setSortKey] = useState(0);
+    const [sortDirection, setSortDirection] = useState(undefined);
+    const [searchTerm, setSearchTerm] = useState('');
     // Sample employee data
     const array = [
         ['Value 1', 'Value 2', 'Value 3'],
@@ -264,6 +262,4 @@ var css_248z = "@import '~bootstrap/scss/bootstrap';\r\n/* Importation de Bootst
 var styles_module = {"header-container":"styles-module_header-container__rL9dS","App-logo":"styles-module_App-logo__7NhVt","welcome-message":"styles-module_welcome-message__pSWCQ","header-table":"styles-module_header-table__QQZON","table":"styles-module_table__pSrFL","sort-icon":"styles-module_sort-icon__-J-va","icon":"styles-module_icon__f5RIm","desc":"styles-module_desc__1fbqJ","pagination-controls":"styles-module_pagination-controls__pH8wx","SearchBar":"styles-module_SearchBar__WBVnz","EntriesPerPageDropdown":"styles-module_EntriesPerPageDropdown__cjT5A","dropdown-toggle":"styles-module_dropdown-toggle__iI5LG","dropdown-menu":"styles-module_dropdown-menu__1546i","dropdown-item":"styles-module_dropdown-item__4cKfb","container-border":"styles-module_container-border__3ZGWY","mb-3":"styles-module_mb-3__IDfB7","text-center":"styles-module_text-center__WgHzT","label-fixed-width":"styles-module_label-fixed-width__lUPNc","button-custom":"styles-module_button-custom__r76QT"};
 styleInject(css_248z);
 
-exports.Styles = styles_module;
-exports.TablePlugin = TablePlugin;
-//# sourceMappingURL=index.js.map
+export { styles_module as Styles, TablePlugin };
