@@ -1,6 +1,6 @@
 {
   "name": "mr01-table-plugin",
-  "version": "0.3.3",
+  "version": "0.3.7",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -64,7 +64,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "size-limit": "^9.0.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "@rollup/plugin-terser": "^0.4.3",

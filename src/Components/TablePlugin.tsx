@@ -15,7 +15,7 @@ import SearchBar from './SearchBar';
  * @returns {JSX.Element} The rendered `TablePlugin` component.
  */
 
-interface TablePluginProps {
+ interface TablePluginProps {
   headers: string[];
   data: string[][];
 }
