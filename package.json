@@ -1,6 +1,6 @@
 {
   "name": "mr01-table-plugin",
-  "version": "0.2.8",
+  "version": "0.3.2",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/abaddon101/plugin-table-for-npm"
   },
   "keywords": [
     "react",

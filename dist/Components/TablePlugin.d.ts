@@ -5,5 +5,9 @@ import React from 'react';
  * @component
  * @returns {JSX.Element} The rendered `TablePlugin` component.
  */
-declare function TablePlugin(): React.JSX.Element;
+interface TablePluginProps {
+    headers: string[];
+    data: string[][];
+}
+declare const TablePlugin: React.FC<TablePluginProps>;
 export default TablePlugin;

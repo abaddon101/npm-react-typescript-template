@@ -111,16 +111,7 @@ const SearchBar = ({ onSearch, isFilterActive }) => {
         isFilterActive && React.createElement("p", null, "(filtered from total entries)")));
 };
 
-// import employeesData from './data'; // Import the data
-// import { Employee } from './data';
-// import "./style.scss";
-/**
- * The `TablePlugin` component is a versatile table display component for rendering employee information.
- * It includes features like sorting, searching, pagination, and configurable entries per page.
- * @component
- * @returns {JSX.Element} The rendered `TablePlugin` component.
- */
-function TablePlugin() {
+const TablePlugin = ({ headers, data }) => {
     // State variables to manage the component's behavior
     const [entriesPerPage, setEntriesPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -128,19 +119,24 @@ function TablePlugin() {
     const [sortDirection, setSortDirection] = useState(undefined);
     const [searchTerm, setSearchTerm] = useState('');
     // Sample employee data
-    const array = [
-        ['Value 1', 'Value 2', 'Value 3'],
-        ['Value 4', 'Value 5', 'Value 6'],
-        // ... Ajoutez d'autres lignes selon vos besoins
-    ];
-    const arrayHeader = ['Colonne 1', 'Colonne 2', 'Colonne 3'];
+    const arrayHeader = headers;
+    const array = data;
     // Calculating various metrics for display and pagination
     const startRange = (currentPage - 1) * entriesPerPage + 1;
     const endRange = Math.min(currentPage * entriesPerPage, array.length);
     const totalEmployees = array.length;
     const totalPages = Math.ceil(totalEmployees / entriesPerPage);
     // Function to handle sorting of the table en envoyant l'index
-    const handleSort = (key) => {
+    // const handleSort = (key: number) => {
+    //   // Toggling sort direction if the same key is clicked again
+    //   if (sortKey === key) {
+    //     setSortDirection((prevDirection) => (prevDirection === 'asc' ? 'desc' : 'asc'));
+    //   } else {
+    //     setSortKey(key);
+    //     setSortDirection('asc');
+    //   }
+    // };
+    const handleHeaderSort = (key) => {
         // Toggling sort direction if the same key is clicked again
         if (sortKey === key) {
             setSortDirection((prevDirection) => (prevDirection === 'asc' ? 'desc' : 'asc'));
@@ -215,13 +211,13 @@ function TablePlugin() {
             React.createElement(SearchBar, { onSearch: handleSearch, isFilterActive: filteredEmployees.length > 0 })),
         React.createElement("table", null,
             React.createElement("thead", null,
-                React.createElement("tr", null, arrayHeader.map((header, index) => (React.createElement("th", { key: index, onClick: () => handleSort(index) },
+                React.createElement("tr", null, arrayHeader.map((header, index) => (React.createElement("th", { key: index, onClick: () => handleHeaderSort(index) },
                     header,
                     " ",
                     React.createElement(SortIcon, { direction: sortKey === index ? sortDirection : undefined })))))),
             React.createElement("tbody", null,
                 isTableEmpty && !isFilterResultEmpty ? (React.createElement("tr", null,
-                    React.createElement("td", { colSpan: 9 }, "No data available in table"))) : (currentEmployees.map((employee, index) => (React.createElement("tr", { key: index }, employee.map((data, dataIndex) => (React.createElement("td", { key: dataIndex }, data))))))),
+                    React.createElement("td", { colSpan: arrayHeader.length }, "No data available in table"))) : (currentEmployees.map((employee, index) => (React.createElement("tr", { key: index }, arrayHeader.map((header, dataIndex) => (React.createElement("td", { key: dataIndex }, employee[arrayHeader.indexOf(header)]))))))),
                 isFilterResultEmpty && !isTableEmpty && (React.createElement("tr", null,
                     React.createElement("td", { colSpan: 9 }, "No matching records found"))))),
         React.createElement(TableInfo, { startRange: startRange, endRange: endRange, totalEmployees: totalEmployees, filteredEmployees: filteredEmployees.length, searchTerm: searchTerm }),
@@ -229,7 +225,7 @@ function TablePlugin() {
             React.createElement("button", { onClick: handlePreviousPage, disabled: currentPage === 1 }, "Previous"),
             pageButtons,
             React.createElement("button", { onClick: handleNextPage, disabled: currentPage === totalPages }, "Next"))));
-}
+};
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};

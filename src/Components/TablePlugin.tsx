@@ -14,7 +14,13 @@ import SearchBar from './SearchBar';
  * @component
  * @returns {JSX.Element} The rendered `TablePlugin` component.
  */
-function TablePlugin() {
+
+interface TablePluginProps {
+  headers: string[];
+  data: string[][];
+}
+
+const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
   // State variables to manage the component's behavior
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,12 +29,8 @@ function TablePlugin() {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Sample employee data
-  const array: string[][] = [
-    ['Value 1', 'Value 2', 'Value 3'],
-    ['Value 4', 'Value 5', 'Value 6'],
-    // ... Ajoutez d'autres lignes selon vos besoins
-  ];
-  const arrayHeader: string[] = ['Colonne 1', 'Colonne 2', 'Colonne 3'];
+  const arrayHeader: string[] = headers;
+  const array: string[][] = data;
   // Calculating various metrics for display and pagination
   const startRange = (currentPage - 1) * entriesPerPage + 1;
   const endRange = Math.min(currentPage * entriesPerPage, array.length);
@@ -36,7 +38,17 @@ function TablePlugin() {
   const totalPages = Math.ceil(totalEmployees / entriesPerPage);
 
   // Function to handle sorting of the table en envoyant l'index
-  const handleSort = (key: number) => {
+  // const handleSort = (key: number) => {
+  //   // Toggling sort direction if the same key is clicked again
+  //   if (sortKey === key) {
+  //     setSortDirection((prevDirection) => (prevDirection === 'asc' ? 'desc' : 'asc'));
+  //   } else {
+  //     setSortKey(key);
+  //     setSortDirection('asc');
+  //   }
+  // };
+
+  const handleHeaderSort = (key: number) => {
     // Toggling sort direction if the same key is clicked again
     if (sortKey === key) {
       setSortDirection((prevDirection) => (prevDirection === 'asc' ? 'desc' : 'asc'));
@@ -142,7 +154,7 @@ function TablePlugin() {
         <thead>
           <tr>
             {arrayHeader.map((header, index) => (
-              <th key={index} onClick={() => handleSort(index)}>
+              <th key={index} onClick={() => handleHeaderSort(index)}>
                 {header} <SortIcon direction={sortKey === index ? sortDirection : undefined} />
               </th>
             ))}
@@ -151,13 +163,13 @@ function TablePlugin() {
         <tbody>
           {isTableEmpty && !isFilterResultEmpty ? (
             <tr>
-              <td colSpan={9}>No data available in table</td>
+              <td colSpan={arrayHeader.length}>No data available in table</td>
             </tr>
           ) : (
             currentEmployees.map((employee: Array<string>, index: number) => (
               <tr key={index}>
-                {employee.map((data: string, dataIndex: number) => (
-                  <td key={dataIndex}>{data}</td>
+                {arrayHeader.map((header, dataIndex) => (
+                  <td key={dataIndex}>{employee[arrayHeader.indexOf(header)]}</td>
                 ))}
               </tr>
             ))
@@ -190,6 +202,6 @@ function TablePlugin() {
       </div>
     </div>
   );
-}
+};
 
 export default TablePlugin;
