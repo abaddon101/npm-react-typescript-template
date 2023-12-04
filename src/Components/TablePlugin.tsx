@@ -6,7 +6,7 @@ import SortIcon from './SortIcon';
 import SearchBar from './SearchBar';
 // import employeesData from './data'; // Import the data
 // import { Employee } from './data';
-// import "./style.scss";
+import "./style.scss";
 
 /**
  * The `TablePlugin` component is a versatile table display component for rendering employee information.
@@ -15,7 +15,7 @@ import SearchBar from './SearchBar';
  * @returns {JSX.Element} The rendered `TablePlugin` component.
  */
 
- interface TablePluginProps {
+interface TablePluginProps {
   headers: string[];
   data: string[][];
 }
@@ -24,7 +24,8 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
   // State variables to manage the component's behavior
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortKey, setSortKey] = useState<number>(0);
+  const [sortKey, setSortKey] = useState<number | null>(null);
+
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | undefined>(undefined);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -59,19 +60,18 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
   };
 
   // Sorting the employees array based on selected key and direction
-  // const sortedEmployees = array.sort((a, b) => {
-  //   const aValue = a[sortKey];
-  //   const bValue = b[sortKey];
+  const sortedEmployees = array.slice().sort((a, b) => {
+    const aValue = a[sortKey as number];
+    const bValue = b[sortKey as number];
 
-  //   if (sortDirection === 'asc') {
-  //     return aValue.toString().localeCompare(bValue.toString());
-  //   } else if (sortDirection === 'desc') {
-  //     return bValue.toString().localeCompare(aValue.toString());
-  //   } else {
-  //     return 0;
-  //   }
-  // });
-  const sortedEmployees = array;
+    if (sortDirection === 'asc') {
+      return aValue.toString().localeCompare(bValue.toString());
+    } else if (sortDirection === 'desc') {
+      return bValue.toString().localeCompare(aValue.toString());
+    } else {
+      return 0;
+    }
+  });
 
   // Filtering employees based on the search term
   const handleSearch = (term: string) => {

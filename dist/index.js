@@ -117,7 +117,7 @@ const TablePlugin = ({ headers, data }) => {
     // State variables to manage the component's behavior
     const [entriesPerPage, setEntriesPerPage] = React.useState(10);
     const [currentPage, setCurrentPage] = React.useState(1);
-    const [sortKey, setSortKey] = React.useState(0);
+    const [sortKey, setSortKey] = React.useState(null);
     const [sortDirection, setSortDirection] = React.useState(undefined);
     const [searchTerm, setSearchTerm] = React.useState('');
     // Sample employee data
@@ -149,18 +149,19 @@ const TablePlugin = ({ headers, data }) => {
         }
     };
     // Sorting the employees array based on selected key and direction
-    // const sortedEmployees = array.sort((a, b) => {
-    //   const aValue = a[sortKey];
-    //   const bValue = b[sortKey];
-    //   if (sortDirection === 'asc') {
-    //     return aValue.toString().localeCompare(bValue.toString());
-    //   } else if (sortDirection === 'desc') {
-    //     return bValue.toString().localeCompare(aValue.toString());
-    //   } else {
-    //     return 0;
-    //   }
-    // });
-    const sortedEmployees = array;
+    const sortedEmployees = array.slice().sort((a, b) => {
+        const aValue = a[sortKey];
+        const bValue = b[sortKey];
+        if (sortDirection === 'asc') {
+            return aValue.toString().localeCompare(bValue.toString());
+        }
+        else if (sortDirection === 'desc') {
+            return bValue.toString().localeCompare(aValue.toString());
+        }
+        else {
+            return 0;
+        }
+    });
     // Filtering employees based on the search term
     const handleSearch = (term) => {
         setSearchTerm(term);
