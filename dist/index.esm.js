@@ -115,7 +115,7 @@ const SearchBar = ({ onSearch, isFilterActive }) => {
         isFilterActive));
 };
 
-const TablePlugin = ({ headers, data }) => {
+const TablePlugin = ({ headers, data, showHeader = true, showTableInfo = true }) => {
     // State variables to manage the component's behavior
     const [entriesPerPage, setEntriesPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -218,13 +218,13 @@ const TablePlugin = ({ headers, data }) => {
     const isFilterResultEmpty = filteredEmployees.length === 0 && searchTerm !== '';
     // Rendering the table component with sorting, searching, and pagination controls
     return (React.createElement("div", null,
-        React.createElement("header", { className: "header-app", style: {
+        showHeader && (React.createElement("header", { className: "header-app", style: {
                 fontFamily: '"Times New Roman", serif',
                 background: 'linear-gradient(to right, #3498db, #296fb9, #1f4a8d)',
                 padding: '1rem',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
             } },
-            React.createElement("h2", { style: { color: '#fff' } }, "Tableau de Filtrage")),
+            React.createElement("h2", { style: { color: '#fff' } }, "Tableau de Filtrage"))),
         React.createElement("div", { className: "header-table", style: {
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -264,8 +264,8 @@ const TablePlugin = ({ headers, data }) => {
                     } }, employee[arrayHeader.indexOf(header)]))))))),
                 isFilterResultEmpty && !isTableEmpty && (React.createElement("tr", null,
                     React.createElement("td", { colSpan: 9 }, "No matching records found"))))),
-        React.createElement("div", { style: { margin: '15px' } },
-            React.createElement(TableInfo, { startRange: startRange, endRange: endRange, totalEmployees: totalEmployees, filteredEmployees: filteredEmployees.length, searchTerm: searchTerm })),
+        showTableInfo && (React.createElement("div", { style: { margin: '15px' } },
+            React.createElement(TableInfo, { startRange: startRange, endRange: endRange, totalEmployees: totalEmployees, filteredEmployees: filteredEmployees.length, searchTerm: searchTerm }))),
         React.createElement("div", { className: "pagination-controls", style: { marginTop: '15px' } },
             React.createElement("button", { onClick: handlePreviousPage, disabled: currentPage === 1, style: {
                     padding: '8px 12px',

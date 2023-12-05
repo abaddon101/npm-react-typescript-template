@@ -18,9 +18,11 @@ import SearchBar from './SearchBar';
 interface TablePluginProps {
   headers: string[];
   data: string[][];
+  showHeader?: boolean; // Propriété pour contrôler l'affichage du header
+  showTableInfo?: boolean; // Propriété pour contrôler l'affichage de TableInfo
 }
 
-const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
+const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = true, showTableInfo = true }) => {
   // State variables to manage the component's behavior
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -151,17 +153,19 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
   return (
     <div>
       {/* Navigation links */}
-      <header
-        className="header-app"
-        style={{
-          fontFamily: '"Times New Roman", serif',
-          background: 'linear-gradient(to right, #3498db, #296fb9, #1f4a8d)',
-          padding: '1rem',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        <h2 style={{ color: '#fff' }}>Tableau de Filtrage</h2>
-      </header>
+      {showHeader && (
+        <header
+          className="header-app"
+          style={{
+            fontFamily: '"Times New Roman", serif',
+            background: 'linear-gradient(to right, #3498db, #296fb9, #1f4a8d)',
+            padding: '1rem',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <h2 style={{ color: '#fff' }}>Tableau de Filtrage</h2>
+        </header>
+      )}
       <div
         className="header-table"
         style={{
@@ -242,15 +246,17 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
         </tbody>
       </table>
       {/* Displaying information about the current page, total entries, and search term */}
-      <div style={{ margin: '15px' }}>
-        <TableInfo
-          startRange={startRange}
-          endRange={endRange}
-          totalEmployees={totalEmployees}
-          filteredEmployees={filteredEmployees.length}
-          searchTerm={searchTerm}
-        />
-      </div>
+      {showTableInfo && (
+        <div style={{ margin: '15px' }}>
+          <TableInfo
+            startRange={startRange}
+            endRange={endRange}
+            totalEmployees={totalEmployees}
+            filteredEmployees={filteredEmployees.length}
+            searchTerm={searchTerm}
+          />
+        </div>
+      )}
 
       {/* Pagination controls */}
       <div className="pagination-controls" style={{ marginTop: '15px' }}>

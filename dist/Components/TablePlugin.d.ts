@@ -8,6 +8,8 @@ import React from 'react';
 interface TablePluginProps {
     headers: string[];
     data: string[][];
+    showHeader?: boolean;
+    showTableInfo?: boolean;
 }
 declare const TablePlugin: React.FC<TablePluginProps>;
 export default TablePlugin;
