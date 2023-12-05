@@ -1,22 +1,22 @@
 # Table Plugin Modulable
 
-The Table Plugin Modulable is a versatile React component designed for displaying and managing tabular data, particularly tailored for rendering employee information. It comes with features such as sorting, searching, pagination, and customizable entries per page. This README will guide you through the installation, functionality, usage, and advantages of the plugin.
+The Table Plugin Modulable is a versatile React component designed for displaying and managing tabular data. It comes with features such as sorting, searching, pagination, and customizable entries per page. This README will guide you through the installation, functionality, usage, and advantages of the plugin.
 
-### Installation
+## Introduction
+
+The Table Plugin Modulable provides a flexible solution for efficient tabular data management in React applications. It offers modularity, configurability, and a user-friendly interface for enhanced data visualization.
+
+## Installation
 
 To install the Table Plugin Modulable, follow these steps:
 
 1. Ensure you have Node.js installed on your machine.
 
-2. Installation : Install the table-plugin using npm or yarn
+2. Install the table-plugin using npm or yarn:
 
-```shell
-npm i mr01-table-plugin
-```
-
-```shell
- npm install
-```
+   ```shell
+   npm install mr01-table-plugin
+   ```
 
 ### Usage
 
@@ -42,7 +42,7 @@ function App() {
     ["Romulus", "Calghar", "1979/11/09"],
     ["Karadoc", "Ladose", "1998/10/13"],
     ["Perceval", "Legallois", "1997/09/17"],
-    // ... 
+    // ...
   ];
 
   return (
@@ -62,30 +62,39 @@ The Table Plugin Modulable offers the following features:
 
 - Sorting: Click on column headers to sort data in ascending or descending order.
 
+![sorting example](/src/assets/SortExample.png)
+
 - Searching: Utilize the search bar to filter data based on a search term.
-
+  ![searching example](/src/assets/searchExample.png)
 - Pagination: Navigate through multiple pages of data with the pagination controls.
-
+  ![pagination example](/src/assets/paginationExample.png)
 - Entries Per Page: Adjust the number of entries displayed per page using the dropdown.
+  ![entries example](/src/assets/showExample.png)
+- Possibility to display or don't display element,if the showHeader or showTableInfo are false, they will be don't display, if they are true, they will be display
 
-#### Examples
+```js
+function App() {
+  // headers of the array by example
+  const headers: string[] = ["Firstname", "Lastname", "date of birth"];
+  // data in the array by example
+  const data: string[][] = [
+    ["Stannis", "Baratheon", "1989/12/05"],
+    ["Romulus", "Calghar", "1979/11/09"],
+    ["Karadoc", "Ladose", "1998/10/13"],
+    ["Perceval", "Legallois", "1997/09/17"],
+    // ...
+  ];
 
-Sorting
-Click on column headers to sort data:
+  return (
+    <div className="App">
+      {/* Utilization with headers and data */}
+      <TablePlugin headers={headers} data={data} showHeader={false} showTableInfo={false} />
+    </div>
+  );
+}
 
-
-
-Searching
-Use the search bar to filter data:
-
-
-
-Pagination
-Navigate through pages with pagination controls:
-
-
-Select
-Possibility to choose how many entries to show
+export default App;
+```
 
 #### Components Overview
 
@@ -103,8 +112,6 @@ Possibility to choose how many entries to show
 
 - TableInfo
   Displays information about the current page, total entries, and search term.
-
-
 
 #### Advantages
 

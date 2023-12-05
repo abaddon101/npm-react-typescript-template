@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-// import Table from "react-bootstrap/Table";
 import TableInfo from './TableInfo';
 import EntriesPerPageDropdown from './EntriesPerPageDropdown';
 import SortIcon from './SortIcon';
 import SearchBar from './SearchBar';
-// import employeesData from './data'; // Import the data
-// import { Employee } from './data';
-// import '../styles.module.css';
 
 /**
  * The `TablePlugin` component is a versatile table display component for rendering employee information.
