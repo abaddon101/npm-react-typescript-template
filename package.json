@@ -1,6 +1,6 @@
 {
   "name": "mr01-table-plugin",
-  "version": "0.5.6",
+  "version": "0.5.8",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -22,16 +22,24 @@
     "url": "https://github.com/abaddon101/plugin-table-for-npm"
   },
   "keywords": [
-    "react",
-    "typescript",
-    "bottom-sheet"
+    "React table",
+    "Tabular data",
+    "Sorting",
+    "Searching",
+    "Pagination",
+    "Entries per page",
+    "Modularity",
+    "User-friendly",
+    "Responsive table",
+    "Customizable table",
+    "React UI component"
   ],
   "author": "",
-  "license": "",
+  "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/helgastogova/npm-react-typescript-template"
   },
-  "homepage": "",
+  "homepage": "https://github.com/abaddon101/plugin-table-for-npm",
   "peerDependencies": {
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
