@@ -68,7 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isFilterActive }) => {
         onChange={handleSearchChange}
       />
       {/* Display a message if filtering is active */}
-      {isFilterActive && <p>(filtered from total entries)</p>}
+      {isFilterActive }
     </div>
   );
 };

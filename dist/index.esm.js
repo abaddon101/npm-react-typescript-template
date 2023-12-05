@@ -49,11 +49,15 @@ const EntriesPerPageDropdown = ({ onChange }) => {
         "entries"));
 };
 
-// SortIcon.tsx
 const SortIcon = ({ direction }) => {
-    return (React.createElement("div", { className: `sort-icon ${direction ? direction : ''}` },
-        direction === 'asc' && 'up',
-        direction === 'desc' && 'down'));
+    const iconStyle = {
+        fontSize: '12px', // Ajustez la taille selon vos besoins
+        color: 'white', // Couleur blanche
+        marginLeft: '5px', // Espacement à gauche pour séparer de votre texte
+    };
+    return (React.createElement("div", { className: `sort-icon ${direction ? direction : ''}`, style: iconStyle },
+        direction === 'asc' && '↑',
+        direction === 'desc' && '↓'));
 };
 
 /**
@@ -108,7 +112,7 @@ const SearchBar = ({ onSearch, isFilterActive }) => {
     return (React.createElement("div", null,
         "Search:",
         React.createElement("input", { type: "text", placeholder: "", value: searchTerm, onChange: handleSearchChange }),
-        isFilterActive && React.createElement("p", null, "(filtered from total entries)")));
+        isFilterActive));
 };
 
 const TablePlugin = ({ headers, data }) => {
@@ -188,16 +192,25 @@ const TablePlugin = ({ headers, data }) => {
     const PAGE_NEIGHBORS = 1;
     const FIRST_PAGE = 1;
     const pageButtons = [];
+    const buttonStyle = {
+        padding: '8px 12px',
+        margin: '0 5px',
+        border: '1px solid #007bff',
+        borderRadius: '5px',
+        color: '#fff',
+        background: 'rgb(52, 152, 219)',
+        cursor: 'pointer',
+    };
     for (let i = 1; i <= totalPages; i++) {
         // Displaying the first and last button, as well as neighbors of the current page
         if (i === FIRST_PAGE ||
             i === totalPages ||
             (i >= currentPage - PAGE_NEIGHBORS && i <= currentPage + PAGE_NEIGHBORS)) {
-            pageButtons.push(React.createElement("button", { key: i, onClick: () => handleGoToPage(i), disabled: i === currentPage }, i));
+            pageButtons.push(React.createElement("button", { key: i, onClick: () => handleGoToPage(i), disabled: i === currentPage, style: buttonStyle }, i));
         }
         else if (i === FIRST_PAGE + 1 || i === totalPages - 1) {
             // Displaying ellipsis (...) next to the first and last buttons
-            pageButtons.push(React.createElement("span", { key: i, className: "pagination-ellipsis" }, "..."));
+            pageButtons.push(React.createElement("span", { key: i, className: "pagination-ellipsis", style: buttonStyle }, "..."));
         }
     }
     // Checking for empty table or empty search results
@@ -205,58 +218,74 @@ const TablePlugin = ({ headers, data }) => {
     const isFilterResultEmpty = filteredEmployees.length === 0 && searchTerm !== '';
     // Rendering the table component with sorting, searching, and pagination controls
     return (React.createElement("div", null,
-        React.createElement("header", { className: "header-app" },
-            React.createElement("h2", null, "Tableau de Filtrage")),
-        React.createElement("div", { className: "header-table" },
+        React.createElement("header", { className: "header-app", style: {
+                fontFamily: '"Times New Roman", serif',
+                background: 'linear-gradient(to right, #3498db, #296fb9, #1f4a8d)',
+                padding: '1rem',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            } },
+            React.createElement("h2", { style: { color: '#fff' } }, "Tableau de Filtrage")),
+        React.createElement("div", { className: "header-table", style: {
+                display: 'flex',
+                justifyContent: 'space-between',
+                margin: '15px',
+                width: '65%',
+                borderBottom: '1px solid white', // Bordure blanche en bas
+            } },
             React.createElement(EntriesPerPageDropdown, { onChange: handleEntriesPerPageChange }),
             React.createElement(SearchBar, { onSearch: handleSearch, isFilterActive: filteredEmployees.length > 0 })),
-        React.createElement("table", null,
-            React.createElement("thead", null,
-                React.createElement("tr", null, arrayHeader.map((header, index) => (React.createElement("th", { key: index, onClick: () => handleHeaderSort(index) },
+        React.createElement("table", { style: {
+                display: 'table',
+                width: '100%',
+                borderCollapse: 'collapse',
+                marginBottom: '1rem',
+                backgroundColor: '#fff',
+                boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
+                border: '1px solid black', // Bordure de la table
+            } },
+            React.createElement("thead", { style: { backgroundColor: '#2980b9', color: '#fff' } },
+                React.createElement("tr", null, arrayHeader.map((header, index) => (React.createElement("th", { key: index, onClick: () => handleHeaderSort(index), style: {
+                        border: '1px solid white', // Bordure blanche
+                        padding: '8px',
+                        textAlign: 'left',
+                        backgroundColor: '#3498db',
+                    } },
                     header,
                     " ",
                     React.createElement(SortIcon, { direction: sortKey === index ? sortDirection : undefined })))))),
             React.createElement("tbody", null,
                 isTableEmpty && !isFilterResultEmpty ? (React.createElement("tr", null,
-                    React.createElement("td", { colSpan: arrayHeader.length }, "No data available in table"))) : (currentEmployees.map((employee, index) => (React.createElement("tr", { key: index }, arrayHeader.map((header, dataIndex) => (React.createElement("td", { key: dataIndex }, employee[arrayHeader.indexOf(header)]))))))),
+                    React.createElement("td", { colSpan: arrayHeader.length }, "No data available in table"))) : (currentEmployees.map((employee, index) => (React.createElement("tr", { key: index, style: {
+                        border: '1px solid black', // Bordure de chaque ligne
+                        margin: '4px 0', // Marge entre chaque ligne
+                    } }, arrayHeader.map((header, dataIndex) => (React.createElement("td", { key: dataIndex, style: {
+                        border: '1px solid black', // Bordure de chaque cellule
+                        padding: '8px',
+                    } }, employee[arrayHeader.indexOf(header)]))))))),
                 isFilterResultEmpty && !isTableEmpty && (React.createElement("tr", null,
                     React.createElement("td", { colSpan: 9 }, "No matching records found"))))),
-        React.createElement(TableInfo, { startRange: startRange, endRange: endRange, totalEmployees: totalEmployees, filteredEmployees: filteredEmployees.length, searchTerm: searchTerm }),
-        React.createElement("div", { className: "pagination-controls" },
-            React.createElement("button", { onClick: handlePreviousPage, disabled: currentPage === 1 }, "Previous"),
+        React.createElement("div", { style: { margin: '15px' } },
+            React.createElement(TableInfo, { startRange: startRange, endRange: endRange, totalEmployees: totalEmployees, filteredEmployees: filteredEmployees.length, searchTerm: searchTerm })),
+        React.createElement("div", { className: "pagination-controls", style: { marginTop: '15px' } },
+            React.createElement("button", { onClick: handlePreviousPage, disabled: currentPage === 1, style: {
+                    padding: '8px 12px',
+                    margin: '0 5px',
+                    border: '1px solid #007bff',
+                    borderRadius: '5px',
+                    color: '#fff',
+                    background: 'rgb(52, 152, 219)',
+                    cursor: 'pointer',
+                } }, "Previous"),
             pageButtons,
-            React.createElement("button", { onClick: handleNextPage, disabled: currentPage === totalPages }, "Next"))));
+            React.createElement("button", { onClick: handleNextPage, disabled: currentPage === totalPages, style: {
+                    padding: '8px 12px',
+                    margin: '0 5px',
+                    border: '1px solid #007bff',
+                    borderRadius: '5px',
+                    color: '#fff',
+                    background: 'rgb(52, 152, 219)',
+                    cursor: 'pointer',
+                } }, "Next"))));
 };
 
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css_248z = "/* @import '~bootstrap/scss/bootstrap'; */\r\n/* Importation de Bootstrap 5 */\r\nbody {\r\n  font-family: 'Times New Roman', serif;\r\n}\r\n.styles-module_header-container__rL9dS {\r\n  background: linear-gradient(to right, #3498db, #2980b9, #1f618d);\r\n  padding: 1rem;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n}\r\n.styles-module_header-container__rL9dS img {\r\n  height: 80px;\r\n}\r\n.styles-module_header-container__rL9dS a {\r\n  text-decoration: none;\r\n  color: #fafafa;\r\n  font-size: 18px;\r\n  margin-left: 20px;\r\n}\r\n.styles-module_header-container__rL9dS .styles-module_App-logo__7NhVt {\r\n  height: 40px;\r\n  transition: opacity 0.3s ease-in-out;\r\n  border-radius: 5px;\r\n}\r\n.styles-module_header-container__rL9dS .styles-module_App-logo__7NhVt:hover {\r\n  opacity: 0.8;\r\n}\r\n.styles-module_welcome-message__pSWCQ {\r\n  margin: 40px 20px;\r\n  font-size: 24px;\r\n  line-height: 1.5;\r\n  color: #333;\r\n}\r\n.styles-module_header-table__QQZON {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 15px;\r\n  width: 75%;\r\n}\r\n.styles-module_table__pSrFL {\r\n  width: 100%;\r\n  margin-bottom: 1rem;\r\n  background-color: #fff;\r\n  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);\r\n  border-collapse: collapse;\r\n  overflow-x: auto;\r\n}\r\n.styles-module_table__pSrFL th,\r\n.styles-module_table__pSrFL td {\r\n  padding: 8px;\r\n  font-size: 14px;\r\n}\r\n.styles-module_table__pSrFL th {\r\n  background-color: #2980b9;\r\n  color: #fff;\r\n  cursor: pointer;\r\n}\r\n.styles-module_table__pSrFL tbody tr:hover {\r\n  background-color: #f8f9fa;\r\n}\r\n.styles-module_sort-icon__-J-va {\r\n  display: inline-block;\r\n  margin-left: 5px;\r\n  vertical-align: middle;\r\n}\r\n.styles-module_sort-icon__-J-va .styles-module_icon__f5RIm {\r\n  color: #3498db;\r\n  font-size: 1.2em;\r\n  transition: transform 0.3s ease-in-out;\r\n}\r\n.styles-module_sort-icon__-J-va.styles-module_desc__1fbqJ .styles-module_icon__f5RIm {\r\n  transform: rotate(180deg);\r\n}\r\n.styles-module_pagination-controls__pH8wx {\r\n  margin-top: 20px;\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n.styles-module_pagination-controls__pH8wx button {\r\n  padding: 8px 12px;\r\n  margin: 0 5px;\r\n  border: 1px solid #007bff;\r\n  color: #007bff;\r\n  background-color: #fff;\r\n  cursor: pointer;\r\n}\r\n.styles-module_pagination-controls__pH8wx button:hover {\r\n  background-color: #007bff;\r\n  color: #fff;\r\n}\r\n.styles-module_pagination-controls__pH8wx button:disabled {\r\n  cursor: not-allowed;\r\n  background-color: #e9ecef;\r\n  border-color: #e9ecef;\r\n  color: #6c757d;\r\n}\r\n.styles-module_SearchBar__WBVnz {\r\n  display: flex;\r\n  align-items: center;\r\n  margin-bottom: 20px;\r\n}\r\n.styles-module_SearchBar__WBVnz input {\r\n  padding: 8px;\r\n  border: 1px solid #ced4da;\r\n  border-radius: 4px;\r\n  margin-left: 8px;\r\n  font-size: 14px;\r\n}\r\n.styles-module_SearchBar__WBVnz p {\r\n  margin-left: 8px;\r\n  color: #6c757d;\r\n}\r\n.styles-module_EntriesPerPageDropdown__cjT5A {\r\n  display: inline-block;\r\n  margin-left: 20px;\r\n}\r\n.styles-module_EntriesPerPageDropdown__cjT5A .styles-module_dropdown-toggle__iI5LG {\r\n  background-color: #2980b9;\r\n  color: #fff;\r\n  border: 1px solid #2980b9;\r\n}\r\n.styles-module_EntriesPerPageDropdown__cjT5A .styles-module_dropdown-menu__1546i {\r\n  background-color: #fff;\r\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n}\r\n.styles-module_EntriesPerPageDropdown__cjT5A .styles-module_dropdown-menu__1546i .styles-module_dropdown-item__4cKfb {\r\n  color: #495057;\r\n}\r\n.styles-module_EntriesPerPageDropdown__cjT5A .styles-module_dropdown-menu__1546i .styles-module_dropdown-item__4cKfb:hover {\r\n  background-color: #f8f9fa;\r\n  color: #007bff;\r\n}\r\n.styles-module_container-border__3ZGWY {\r\n  border: 1px solid #ced4da;\r\n  border-radius: 8px;\r\n  padding: 20px;\r\n  margin-top: 20px;\r\n  background: linear-gradient(to right, #3498db, #2980b9, #1f618d);\r\n  color: white;\r\n}\r\n.styles-module_mb-3__IDfB7 {\r\n  margin-bottom: 1rem;\r\n}\r\n.styles-module_text-center__WgHzT {\r\n  text-align: center;\r\n}\r\n.styles-module_label-fixed-width__lUPNc {\r\n  width: 150px;\r\n}\r\n.styles-module_button-custom__r76QT {\r\n  margin: 15px;\r\n  background: linear-gradient(to right, #3498db, #2980b9, #1f618d);\r\n  color: white;\r\n  border: none;\r\n}\r\n";
-var styles_module = {"header-container":"styles-module_header-container__rL9dS","App-logo":"styles-module_App-logo__7NhVt","welcome-message":"styles-module_welcome-message__pSWCQ","header-table":"styles-module_header-table__QQZON","table":"styles-module_table__pSrFL","sort-icon":"styles-module_sort-icon__-J-va","icon":"styles-module_icon__f5RIm","desc":"styles-module_desc__1fbqJ","pagination-controls":"styles-module_pagination-controls__pH8wx","SearchBar":"styles-module_SearchBar__WBVnz","EntriesPerPageDropdown":"styles-module_EntriesPerPageDropdown__cjT5A","dropdown-toggle":"styles-module_dropdown-toggle__iI5LG","dropdown-menu":"styles-module_dropdown-menu__1546i","dropdown-item":"styles-module_dropdown-item__4cKfb","container-border":"styles-module_container-border__3ZGWY","mb-3":"styles-module_mb-3__IDfB7","text-center":"styles-module_text-center__WgHzT","label-fixed-width":"styles-module_label-fixed-width__lUPNc","button-custom":"styles-module_button-custom__r76QT"};
-styleInject(css_248z);
-
-export { styles_module as Styles, TablePlugin };
+export { TablePlugin };

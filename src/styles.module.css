@@ -1,158 +1,32 @@
-/* @import '~bootstrap/scss/bootstrap'; */
-/* Importation de Bootstrap 5 */
-body {
-  font-family: 'Times New Roman', serif;
-}
-.header-container {
-  background: linear-gradient(to right, #3498db, #2980b9, #1f618d);
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.header-container img {
-  height: 80px;
-}
-.header-container a {
-  text-decoration: none;
-  color: #fafafa;
-  font-size: 18px;
-  margin-left: 20px;
-}
-.header-container .App-logo {
-  height: 40px;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 5px;
-}
-.header-container .App-logo:hover {
-  opacity: 0.8;
-}
-.welcome-message {
-  margin: 40px 20px;
-  font-size: 24px;
-  line-height: 1.5;
-  color: #333;
-}
-.header-table {
-  display: flex;
-  justify-content: space-between;
-  margin: 15px;
-  width: 75%;
-}
+/* Ajoutez ces styles pour transformer la table en un tableau avec des lignes en abcisse et en ordonnée */
 .table {
+  display: table;
   width: 100%;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   border-collapse: collapse;
-  overflow-x: auto;
 }
+
+.table thead {
+  background-color: #2980b9;
+  color: #fff;
+}
+
 .table th,
 .table td {
+  border: 1px solid #3498db;
   padding: 8px;
-  font-size: 14px;
+  text-align: left;
 }
+
+/* Ajoutez ces styles pour mettre en forme l'entête et les lignes en bleu */
 .table th {
-  background-color: #2980b9;
-  color: #fff;
-  cursor: pointer;
+  background-color: #3498db;
 }
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
 .table tbody tr:hover {
-  background-color: #f8f9fa;
-}
-.sort-icon {
-  display: inline-block;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-.sort-icon .icon {
-  color: #3498db;
-  font-size: 1.2em;
-  transition: transform 0.3s ease-in-out;
-}
-.sort-icon.desc .icon {
-  transform: rotate(180deg);
-}
-.pagination-controls {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-.pagination-controls button {
-  padding: 8px 12px;
-  margin: 0 5px;
-  border: 1px solid #007bff;
-  color: #007bff;
-  background-color: #fff;
-  cursor: pointer;
-}
-.pagination-controls button:hover {
-  background-color: #007bff;
+  background-color: #3498db;
   color: #fff;
-}
-.pagination-controls button:disabled {
-  cursor: not-allowed;
-  background-color: #e9ecef;
-  border-color: #e9ecef;
-  color: #6c757d;
-}
-.SearchBar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.SearchBar input {
-  padding: 8px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  margin-left: 8px;
-  font-size: 14px;
-}
-.SearchBar p {
-  margin-left: 8px;
-  color: #6c757d;
-}
-.EntriesPerPageDropdown {
-  display: inline-block;
-  margin-left: 20px;
-}
-.EntriesPerPageDropdown .dropdown-toggle {
-  background-color: #2980b9;
-  color: #fff;
-  border: 1px solid #2980b9;
-}
-.EntriesPerPageDropdown .dropdown-menu {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.EntriesPerPageDropdown .dropdown-menu .dropdown-item {
-  color: #495057;
-}
-.EntriesPerPageDropdown .dropdown-menu .dropdown-item:hover {
-  background-color: #f8f9fa;
-  color: #007bff;
-}
-.container-border {
-  border: 1px solid #ced4da;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
-  background: linear-gradient(to right, #3498db, #2980b9, #1f618d);
-  color: white;
-}
-.mb-3 {
-  margin-bottom: 1rem;
-}
-.text-center {
-  text-align: center;
-}
-.label-fixed-width {
-  width: 150px;
-}
-.button-custom {
-  margin: 15px;
-  background: linear-gradient(to right, #3498db, #2980b9, #1f618d);
-  color: white;
-  border: none;
 }

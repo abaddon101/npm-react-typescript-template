@@ -29,7 +29,9 @@ module.exports = {
     typescript(),
     commonjs(),
     postcss({
-      modules: true,
+      modules: true, // Activez les modules si nécessaire
+      extract: true, // Extracte le CSS dans un fichier séparé
+      minimize: true, // Minifie le CSS en production
     }),
     babel({
       babelHelpers: 'bundled',

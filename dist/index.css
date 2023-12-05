@@ -1,0 +1,25 @@
+.styles-module_table__pSrFL {
+  border-collapse: collapse;
+  display: table;
+  width: 100%;
+}
+.styles-module_table__pSrFL thead {
+  background-color: #2980b9;
+  color: #fff;
+}
+.styles-module_table__pSrFL td,
+.styles-module_table__pSrFL th {
+  border: 1px solid #3498db;
+  padding: 8px;
+  text-align: left;
+}
+.styles-module_table__pSrFL th {
+  background-color: #3498db;
+}
+.styles-module_table__pSrFL tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+.styles-module_table__pSrFL tbody tr:hover {
+  background-color: #3498db;
+  color: #fff;
+}

@@ -1,10 +1,16 @@
 {
   "name": "mr01-table-plugin",
-  "version": "0.3.9",
+  "version": "0.5.5",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/styles.module.css",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint './{src,app}/**/*.{ts,tsx}'",

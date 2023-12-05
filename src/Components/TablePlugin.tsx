@@ -6,7 +6,7 @@ import SortIcon from './SortIcon';
 import SearchBar from './SearchBar';
 // import employeesData from './data'; // Import the data
 // import { Employee } from './data';
-import "./style.scss";
+// import '../styles.module.css';
 
 /**
  * The `TablePlugin` component is a versatile table display component for rendering employee information.
@@ -110,6 +110,16 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
   const PAGE_NEIGHBORS = 1;
   const FIRST_PAGE = 1;
   const pageButtons = [];
+  const buttonStyle = {
+    padding: '8px 12px',
+    margin: '0 5px',
+    border: '1px solid #007bff',
+    borderRadius: '5px',
+    color: '#fff',
+    background: 'rgb(52, 152, 219)',
+    cursor: 'pointer',
+  };
+
   for (let i = 1; i <= totalPages; i++) {
     // Displaying the first and last button, as well as neighbors of the current page
     if (
@@ -118,14 +128,14 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
       (i >= currentPage - PAGE_NEIGHBORS && i <= currentPage + PAGE_NEIGHBORS)
     ) {
       pageButtons.push(
-        <button key={i} onClick={() => handleGoToPage(i)} disabled={i === currentPage}>
+        <button key={i} onClick={() => handleGoToPage(i)} disabled={i === currentPage} style={buttonStyle}>
           {i}
         </button>,
       );
     } else if (i === FIRST_PAGE + 1 || i === totalPages - 1) {
       // Displaying ellipsis (...) next to the first and last buttons
       pageButtons.push(
-        <span key={i} className="pagination-ellipsis">
+        <span key={i} className="pagination-ellipsis" style={buttonStyle}>
           ...
         </span>,
       );
@@ -141,20 +151,56 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
   return (
     <div>
       {/* Navigation links */}
-      <header className="header-app">
-        <h2>Tableau de Filtrage</h2>
+      <header
+        className="header-app"
+        style={{
+          fontFamily: '"Times New Roman", serif',
+          background: 'linear-gradient(to right, #3498db, #296fb9, #1f4a8d)',
+          padding: '1rem',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <h2 style={{ color: '#fff' }}>Tableau de Filtrage</h2>
       </header>
-      <div className="header-table">
+      <div
+        className="header-table"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          margin: '15px',
+          width: '65%',
+          borderBottom: '1px solid white', // Bordure blanche en bas
+        }}
+      >
         <EntriesPerPageDropdown onChange={handleEntriesPerPageChange} />
         <SearchBar onSearch={handleSearch} isFilterActive={filteredEmployees.length > 0} />
       </div>
 
       {/* Table displaying employee information */}
-      <table>
-        <thead>
+      <table
+        style={{
+          display: 'table',
+          width: '100%',
+          borderCollapse: 'collapse',
+          marginBottom: '1rem',
+          backgroundColor: '#fff',
+          boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
+          border: '1px solid black', // Bordure de la table
+        }}
+      >
+        <thead style={{ backgroundColor: '#2980b9', color: '#fff' }}>
           <tr>
             {arrayHeader.map((header, index) => (
-              <th key={index} onClick={() => handleHeaderSort(index)}>
+              <th
+                key={index}
+                onClick={() => handleHeaderSort(index)}
+                style={{
+                  border: '1px solid white', // Bordure blanche
+                  padding: '8px',
+                  textAlign: 'left',
+                  backgroundColor: '#3498db',
+                }}
+              >
                 {header} <SortIcon direction={sortKey === index ? sortDirection : undefined} />
               </th>
             ))}
@@ -167,9 +213,23 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
             </tr>
           ) : (
             currentEmployees.map((employee: Array<string>, index: number) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                style={{
+                  border: '1px solid black', // Bordure de chaque ligne
+                  margin: '4px 0', // Marge entre chaque ligne
+                }}
+              >
                 {arrayHeader.map((header, dataIndex) => (
-                  <td key={dataIndex}>{employee[arrayHeader.indexOf(header)]}</td>
+                  <td
+                    key={dataIndex}
+                    style={{
+                      border: '1px solid black', // Bordure de chaque cellule
+                      padding: '8px',
+                    }}
+                  >
+                    {employee[arrayHeader.indexOf(header)]}
+                  </td>
                 ))}
               </tr>
             ))
@@ -182,21 +242,49 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data }) => {
         </tbody>
       </table>
       {/* Displaying information about the current page, total entries, and search term */}
-      <TableInfo
-        startRange={startRange}
-        endRange={endRange}
-        totalEmployees={totalEmployees}
-        filteredEmployees={filteredEmployees.length}
-        searchTerm={searchTerm}
-      />
+      <div style={{ margin: '15px' }}>
+        <TableInfo
+          startRange={startRange}
+          endRange={endRange}
+          totalEmployees={totalEmployees}
+          filteredEmployees={filteredEmployees.length}
+          searchTerm={searchTerm}
+        />
+      </div>
 
       {/* Pagination controls */}
-      <div className="pagination-controls">
-        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+      <div className="pagination-controls" style={{ marginTop: '15px' }}>
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          style={{
+            padding: '8px 12px',
+            margin: '0 5px',
+            border: '1px solid #007bff',
+            borderRadius: '5px',
+            color: '#fff',
+            background: 'rgb(52, 152, 219)',
+            cursor: 'pointer',
+          }}
+        >
           Previous
         </button>
+
         {pageButtons}
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          style={{
+            padding: '8px 12px',
+            margin: '0 5px',
+            border: '1px solid #007bff',
+            borderRadius: '5px',
+            color: '#fff',
+            background: 'rgb(52, 152, 219)',
+            cursor: 'pointer',
+          }}
+        >
           Next
         </button>
       </div>
