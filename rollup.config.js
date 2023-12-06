@@ -32,6 +32,7 @@ module.exports = {
       modules: true, // Activez les modules si nécessaire
       extract: true, // Extracte le CSS dans un fichier séparé
       minimize: true, // Minifie le CSS en production
+      sourceMap: true, // Active la génération des fichiers source maps
     }),
     babel({
       babelHelpers: 'bundled',
