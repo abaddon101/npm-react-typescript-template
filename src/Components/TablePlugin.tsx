@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import Table from "react-bootstrap/Table";
 import TableInfo from './TableInfo';
 import EntriesPerPageDropdown from './EntriesPerPageDropdown';
 import SortIcon from './SortIcon';
@@ -27,6 +28,17 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | undefined>(undefined);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+  //State data for follow hover' line
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+
+  const handleCellHover = (rowIndex: number) => {
+    setHoveredRow(rowIndex);
+  };
+
+  const handleCellLeave = () => {
+    setHoveredRow(null);
+  };
+
   // Sample employee data
   const arrayHeader: string[] = headers;
   const array: string[][] = data;
@@ -35,17 +47,6 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
   const endRange = Math.min(currentPage * entriesPerPage, array.length);
   const totalEmployees = array.length;
   const totalPages = Math.ceil(totalEmployees / entriesPerPage);
-
-  // Function to handle sorting of the table en envoyant l'index
-  // const handleSort = (key: number) => {
-  //   // Toggling sort direction if the same key is clicked again
-  //   if (sortKey === key) {
-  //     setSortDirection((prevDirection) => (prevDirection === 'asc' ? 'desc' : 'asc'));
-  //   } else {
-  //     setSortKey(key);
-  //     setSortDirection('asc');
-  //   }
-  // };
 
   const handleHeaderSort = (key: number) => {
     // Toggling sort direction if the same key is clicked again
@@ -180,28 +181,40 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
       <table
         style={{
           display: 'table',
+          margin: '15px',
           width: '100%',
           borderCollapse: 'collapse',
           marginBottom: '1rem',
           backgroundColor: '#fff',
           boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
-          border: '1px solid black', // Bordure de la table
+          border: '1px solid grey', // Bordure de la table
+          borderRadius: '5px',
         }}
       >
-        <thead style={{ backgroundColor: '#2980b9', color: '#fff' }}>
+        <thead style={{ backgroundColor: '#d5e5ff', color: '#fff' }}>
           <tr>
             {arrayHeader.map((header, index) => (
               <th
                 key={index}
                 onClick={() => handleHeaderSort(index)}
                 style={{
-                  border: '1px solid white', // Bordure blanche
                   padding: '8px',
                   textAlign: 'left',
                   backgroundColor: '#3498db',
                 }}
               >
-                {header} <SortIcon direction={sortKey === index ? sortDirection : undefined} />
+                <div
+                  className="block-cell"
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  {header}
+
+                  <SortIcon direction={sortKey === index ? sortDirection : undefined} />
+                </div>
               </th>
             ))}
           </tr>
@@ -212,19 +225,21 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
               <td colSpan={arrayHeader.length}>No data available in table</td>
             </tr>
           ) : (
-            currentEmployees.map((employee: Array<string>, index: number) => (
+            currentEmployees.map((employee: Array<string>, rowIndex: number) => (
               <tr
-                key={index}
+                key={rowIndex}
+                onMouseEnter={() => handleCellHover(rowIndex)} // Assumez que le hover concerne la première colonne
+                onMouseLeave={handleCellLeave}
                 style={{
-                  border: '1px solid black', // Bordure de chaque ligne
+                  border: '1px solid grey', // Bordure de chaque ligne
                   margin: '4px 0', // Marge entre chaque ligne
+                  backgroundColor: rowIndex === hoveredRow ? '#d5e5ff' : 'transparent',
                 }}
               >
-                {arrayHeader.map((header, dataIndex) => (
+                {arrayHeader.map((header, colIndex) => (
                   <td
-                    key={dataIndex}
+                    key={colIndex}
                     style={{
-                      border: '1px solid black', // Bordure de chaque cellule
                       padding: '8px',
                     }}
                   >

@@ -32,7 +32,7 @@
  *   );
  * };
  */
-import React from "react";
+import React from 'react';
 interface SearchBarProps {
     onSearch: (term: string) => void;
     isFilterActive: boolean;

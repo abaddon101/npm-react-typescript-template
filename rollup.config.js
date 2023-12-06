@@ -5,6 +5,7 @@ const resolve = require('@rollup/plugin-node-resolve').default;
 const commonjs = require('@rollup/plugin-commonjs');
 const babel = require('@rollup/plugin-babel');
 const replace = require('@rollup/plugin-replace');
+const svgr = require('@svgr/rollup');
 
 module.exports = {
   input: 'src/index.tsx',
@@ -37,7 +38,11 @@ module.exports = {
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
+      extensions: ['.js', '.jsx', '.ts', '.tsx'], // Ajoutez cette ligne
+      presets: ['@babel/preset-react', '@babel/preset-env'], // Ajoutez cette ligne
+      plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-proposal-object-rest-spread'],
     }),
+    svgr(),
     replace({
       preventAssignment: true,
       values: {

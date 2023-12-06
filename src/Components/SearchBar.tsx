@@ -1,9 +1,9 @@
 /**
  * SearchBar Component
- * 
+ *
  * This component provides a search input for filtering a list of entries. It includes
  * options to dynamically update the displayed results based on the user's input.
- * 
+ *
  * @component
  * @param {Object} props - The properties of the SearchBar component.
  * @param {function} props.onSearch - A callback function triggered when the user types
@@ -11,11 +11,11 @@
  * @param {boolean} props.isFilterActive - A boolean flag indicating whether filtering
  *     is currently active. When true, a message is displayed indicating that the
  *     displayed entries are filtered.
- * 
+ *
  * @example
  * // Basic usage with a search callback
  * <SearchBar onSearch={(term) => handleSearch(term)} isFilterActive={true} />
- * 
+ *
  * @example
  * // Integration with a parent component
  * const MyParentComponent = () => {
@@ -23,7 +23,7 @@
  *     // Perform search logic
  *     // Update state or make API calls based on the search term
  *   };
- * 
+ *
  *   return (
  *     <div>
  *       <SearchBar onSearch={handleSearch} isFilterActive={false} />
@@ -32,7 +32,7 @@
  *   );
  * };
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 interface SearchBarProps {
   onSearch: (term: string) => void;
@@ -41,7 +41,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isFilterActive }) => {
   // State to manage the current search term
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Event handler for changes in the search input
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,17 +58,31 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isFilterActive }) => {
 
   // Render the SearchBar component
   return (
-    <div>
-      Search:
-      {/* Input for typing the search term */}
+    <div
+      className="search-bar-container"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '15px',
+      }}
+    >
+      <span>Search: </span>
       <input
+        id="searchInput"
+        style={{
+          padding: '8px',
+          fontSize: '14px',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+        }}
         type="text"
-        placeholder=""
+        placeholder="Type here..."
         value={searchTerm}
         onChange={handleSearchChange}
+        className="search-input"
       />
       {/* Display a message if filtering is active */}
-      {isFilterActive }
+      {isFilterActive}
     </div>
   );
 };
