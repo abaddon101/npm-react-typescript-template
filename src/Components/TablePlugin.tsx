@@ -168,8 +168,8 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          margin: '15px',
-          width: '65%',
+          margin: 'auto',
+          width: '90%',
           borderBottom: '1px solid white', // Bordure blanche en bas
         }}
       >
@@ -181,14 +181,13 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
       <table
         style={{
           display: 'table',
-          margin: '15px',
-          width: '100%',
+          margin: 'auto',
+          width: '90%',
           borderCollapse: 'collapse',
           marginBottom: '1rem',
           backgroundColor: '#fff',
           boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
           border: '1px solid grey', // Bordure de la table
-          borderRadius: '5px',
         }}
       >
         <thead style={{ backgroundColor: '#d5e5ff', color: '#fff' }}>
@@ -258,7 +257,7 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
       </table>
       {/* Displaying information about the current page, total entries, and search term */}
       {showTableInfo && (
-        <div style={{ margin: '15px' }}>
+        <div style={{ width: '90%', margin: 'auto' }}>
           <TableInfo
             startRange={startRange}
             endRange={endRange}
@@ -270,7 +269,10 @@ const TablePlugin: React.FC<TablePluginProps> = ({ headers, data, showHeader = t
       )}
 
       {/* Pagination controls */}
-      <div className="pagination-controls" style={{ marginTop: '15px' }}>
+      <div
+        className="pagination-controls"
+        style={{ display: 'flex', width: '90%%', justifyContent: 'center', margin: 'auto' }}
+      >
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}

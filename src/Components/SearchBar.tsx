@@ -76,7 +76,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isFilterActive }) => {
           borderRadius: '4px',
         }}
         type="text"
-        placeholder="Type here..."
+        placeholder=""
         value={searchTerm}
         onChange={handleSearchChange}
         className="search-input"

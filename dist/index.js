@@ -7779,7 +7779,7 @@ var SearchBar = function SearchBar(_ref) {
       alignItems: 'center',
       marginBottom: '15px'
     }
-  }, "Search:", /*#__PURE__*/React__default["default"].createElement("input", {
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "Search: "), /*#__PURE__*/React__default["default"].createElement("input", {
     id: "searchInput",
     style: {
       padding: '8px',
@@ -7788,7 +7788,7 @@ var SearchBar = function SearchBar(_ref) {
       borderRadius: '4px'
     },
     type: "text",
-    placeholder: "Type here...",
+    placeholder: "",
     value: searchTerm,
     onChange: handleSearchChange,
     className: "search-input"
@@ -7952,8 +7952,8 @@ var TablePlugin = function TablePlugin(_ref) {
     style: {
       display: 'flex',
       justifyContent: 'space-between',
-      margin: '15px',
-      width: '65%',
+      margin: 'auto',
+      width: '90%',
       borderBottom: '1px solid white' // Bordure blanche en bas
     }
   }, /*#__PURE__*/React__default["default"].createElement(EntriesPerPageDropdown, {
@@ -7964,15 +7964,13 @@ var TablePlugin = function TablePlugin(_ref) {
   })), /*#__PURE__*/React__default["default"].createElement("table", {
     style: {
       display: 'table',
-      margin: '15px',
-      width: '100%',
+      margin: 'auto',
+      width: '90%',
       borderCollapse: 'collapse',
       marginBottom: '1rem',
       backgroundColor: '#fff',
       boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
-      border: '1px solid grey',
-      // Bordure de la table
-      borderRadius: '5px'
+      border: '1px solid grey' // Bordure de la table
     }
   }, /*#__PURE__*/React__default["default"].createElement("thead", {
     style: {
@@ -8028,7 +8026,8 @@ var TablePlugin = function TablePlugin(_ref) {
     colSpan: 9
   }, "No matching records found"))))), showTableInfo && ( /*#__PURE__*/React__default["default"].createElement("div", {
     style: {
-      margin: '15px'
+      width: '90%',
+      margin: 'auto'
     }
   }, /*#__PURE__*/React__default["default"].createElement(TableInfo, {
     startRange: startRange,
@@ -8039,7 +8038,10 @@ var TablePlugin = function TablePlugin(_ref) {
   }))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "pagination-controls",
     style: {
-      marginTop: '15px'
+      display: 'flex',
+      width: '90%%',
+      justifyContent: 'center',
+      margin: 'auto'
     }
   }, /*#__PURE__*/React__default["default"].createElement("button", {
     onClick: handlePreviousPage,
