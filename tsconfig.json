@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "esnext",
-    "target": "es2015",
-    "lib": ["dom", "esnext"],
-    "moduleResolution": "node",
-    "jsx": "react",
-    "sourceMap": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true
+    "outDir": "dist", // Specifies the output directory for compiled files
+    "module": "esnext", // Specifies the module code generation (in this case, ESNext)
+    "target": "es2015", // Specifies the ECMAScript target version
+    "lib": ["dom", "esnext"], // Specifies the libraries to include (DOM and ESNext)
+    "moduleResolution": "node", // Specifies how module dependencies are resolved
+    "jsx": "react", // Specifies the JSX factory to use (in this case, React)
+    "sourceMap": true, // Generates source maps for better debugging
+    "declaration": true, // Generates corresponding '.d.ts' declaration files
+    "esModuleInterop": true, // Enables interoperability with CommonJS-style modules
+    "noImplicitReturns": true, // Raises an error if not all code paths return a value
+    "noImplicitThis": true, // Raises an error if 'this' is implicitly of type 'any'
+    "noImplicitAny": true, // Raises an error on expressions and declarations with an implied 'any' type
+    "strictNullChecks": true, // Enables strict null checking
+    "noUnusedLocals": true, // Raises an error on unused local variables
+    "noUnusedParameters": true, // Raises an error on unused parameters
+    "allowSyntheticDefaultImports": true // Allows default imports from modules with no default export
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
-  "exclude": ["node_modules", "build", "dist"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"], // Specifies files to include in compilation
+  "exclude": ["node_modules", "build", "dist"] // Specifies files to exclude from compilation
 }
