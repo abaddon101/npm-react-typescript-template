@@ -7695,9 +7695,12 @@ var StateManagedSelect = /*#__PURE__*/React.forwardRef(function (props, ref) {
 });
 var StateManagedSelect$1 = StateManagedSelect;
 
+// Define the functional component using TypeScript
 var EntriesPerPageDropdown = function EntriesPerPageDropdown(_ref) {
   var onChange = _ref.onChange;
+  // Define the available options for entries per page
   var entriesPerPageOptions = [10, 25, 50, 100];
+  // Initialize the component state for the selected option
   var _useState = React.useState({
       value: entriesPerPageOptions[0],
       label: entriesPerPageOptions[0]
@@ -7705,21 +7708,27 @@ var EntriesPerPageDropdown = function EntriesPerPageDropdown(_ref) {
     _useState2 = _slicedToArray$1(_useState, 2),
     selectedOption = _useState2[0],
     setSelectedOption = _useState2[1];
+  // Event handler for handling the selection in the dropdown
   var handleSelect = function handleSelect(selectedOption) {
+    // Update the component state with the selected option
     setSelectedOption(selectedOption);
+    // Trigger the onChange callback with the selected value
     onChange(selectedOption.value);
   };
+  // Render the component
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "EntriesPerPageDropdown"
   }, /*#__PURE__*/React__default["default"].createElement("span", null, "Show "), /*#__PURE__*/React__default["default"].createElement(StateManagedSelect$1, {
     value: selectedOption,
     onChange: handleSelect,
+    // Map entriesPerPageOptions to the required format for react-select
     options: entriesPerPageOptions.map(function (option) {
       return {
         value: option,
         label: option
       };
     }),
+    // Customize the styles for the dropdown and menu
     styles: {
       control: function control(provided, state) {
         return Object.assign(Object.assign({}, provided), {
@@ -7737,15 +7746,19 @@ var EntriesPerPageDropdown = function EntriesPerPageDropdown(_ref) {
   }), /*#__PURE__*/React__default["default"].createElement("span", null, " entries"));
 };
 
+// Import the React library
+// Define the functional component using TypeScript
 var SortIcon = function SortIcon(_ref) {
   var direction = _ref.direction;
+  // Define the styles for the sort icon
   var iconStyle = {
     fontSize: '12px',
-    // Ajustez la taille selon vos besoins
+    // Adjust the size as needed
     color: 'white',
-    // Couleur blanche
-    marginLeft: '5px' // Espacement à gauche pour séparer de votre texte
+    // Set the color to white
+    marginLeft: '5px' // Left spacing to separate from surrounding text
   };
+  // Render the component
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "sort-icon ".concat(direction ? direction : ''),
     style: iconStyle
